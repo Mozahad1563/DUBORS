@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="dubors" type="topic" connection="db">
+        <binding id="duborsModelTrainBind" topic="dubors.model.train" destinationType="queue" destination="dubors_model_train_queue"/>
+        <binding id="duborsUserBehaviorBind" topic="dubors.user.behavior.event" destinationType="queue" destination="dubors_user_behavior_queue"/>
+        <binding id="duborsRecommendationBind" topic="dubors.recommendation.generate" destinationType="queue" destination="dubors_recommendation_queue"/>
+        <binding id="duborsNotificationBind" topic="dubors.notification.send" destinationType="queue" destination="dubors_notification_queue"/>
+    </exchange>
+</config>

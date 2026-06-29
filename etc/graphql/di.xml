@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+</config>

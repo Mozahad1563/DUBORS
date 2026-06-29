@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="dubors/track/event">
+        <section name="dubors_personalized_offer"/>
+    </action>
+    <action name="checkout/cart/add">
+        <section name="dubors_personalized_offer"/>
+    </action>
+    <action name="checkout/cart/updatePost">
+        <section name="dubors_personalized_offer"/>
+    </action>
+</config>

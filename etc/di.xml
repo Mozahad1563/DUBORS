@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Interface → Implementation bindings -->
+    <preference for="BrainStation23\Dubors\Api\RecommendationRepositoryInterface"
+                type="BrainStation23\Dubors\Model\RecommendationRepository"/>
+    <preference for="BrainStation23\Dubors\Api\UserBehaviorRepositoryInterface"
+                type="BrainStation23\Dubors\Model\UserBehaviorRepository"/>
+    <preference for="BrainStation23\Dubors\Api\Data\RecommendationInterface"
+                type="BrainStation23\Dubors\Model\Recommendation"/>
+    <preference for="BrainStation23\Dubors\Api\Data\UserBehaviorInterface"
+                type="BrainStation23\Dubors\Model\UserBehavior"/>
+
+    <!-- Grid data provider collections -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="dubors_recommendation_listing_data_source"
+                      xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\Collection</item>
+                <item name="dubors_behavior_listing_data_source"
+                      xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\UserBehavior\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vendor_dubors_recommendation</argument>
+            <argument name="resourceModel" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation</argument>
+        </arguments>
+    </type>
+
+    <type name="BrainStation23\Dubors\Model\ResourceModel\UserBehavior\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vendor_dubors_user_behavior</argument>
+            <argument name="resourceModel" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\UserBehavior</argument>
+        </arguments>
+    </type>
+
+</config>

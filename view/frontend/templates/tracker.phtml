@@ -1,0 +1,96 @@
+<?php
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+?>
+<?php if ($block->isCustomerLoggedIn()): ?>
+<script type="text/javascript">
+    var duborsTracker = {
+        trackingUrl: '<?php echo $block->getTrackingUrl(); ?>',
+        
+        /**
+         * Track an event
+         */
+        track: function(eventType, productId, categoryId, cartValue) {
+            var self = this;
+            
+            var params = {
+                event_type: eventType
+            };
+            
+            if (productId) {
+                params.product_id = productId;
+            }
+            
+            if (categoryId) {
+                params.category_id = categoryId;
+            }
+            
+            if (cartValue) {
+                params.cart_value = cartValue;
+            }
+            
+            fetch(this.trackingUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: Object.keys(params).map(key => 
+                    encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+                ).join('&')
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (window.console) {
+                    console.log('DUBORS Track: ' + (data.success ? 'Success' : 'Failed'), data);
+                }
+            })
+            .catch(error => {
+                if (window.console) {
+                    console.error('DUBORS Track Error:', error);
+                }
+            });
+        },
+        
+        /**
+         * Track product view
+         */
+        trackProductView: function(productId) {
+            this.track('product_view', productId);
+        },
+        
+        /**
+         * Track add to cart
+         */
+        trackAddToCart: function(productId, cartValue) {
+            this.track('add_to_cart', productId, null, cartValue);
+        },
+        
+        /**
+         * Track custom event
+         */
+        trackCustomEvent: function(eventType, data) {
+            data = data || {};
+            this.track(
+                eventType,
+                data.product_id || null,
+                data.category_id || null,
+                data.cart_value || 0
+            );
+        }
+    };
+    
+    // Auto-track product view on product detail page
+    document.addEventListener('DOMContentLoaded', function() {
+        var productId = document.querySelector('[data-product-id]');
+        if (productId) {
+            duborsTracker.trackProductView(productId.getAttribute('data-product-id'));
+        }
+    });
+</script>
+<?php endif; ?>

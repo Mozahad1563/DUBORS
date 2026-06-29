@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="vendor_dubors_user_behavior" resource="default" engine="innodb" comment="DUBORS User Behavior Tracking">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" comment="Customer ID"/>
+        <column xsi:type="varchar" name="behavior_type" nullable="false" length="50" comment="Behavior Type"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" comment="Product ID"/>
+        <column xsi:type="int" name="category_id" unsigned="true" nullable="true" comment="Category ID"/>
+        <column xsi:type="decimal" name="cart_value" scale="2" precision="12" nullable="true" comment="Cart Value"/>
+        <column xsi:type="text" name="metadata" nullable="true" comment="JSON Metadata"/>
+        <column xsi:type="varchar" name="ip_address" nullable="true" length="45" comment="IP Address"/>
+        <column xsi:type="varchar" name="user_agent" nullable="true" length="512" comment="User Agent"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="VENDOR_DUBORS_USER_BEHAVIOR_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_USER_BEHAVIOR_BEHAVIOR_TYPE" indexType="btree">
+            <column name="behavior_type"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_USER_BEHAVIOR_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_USER_BEHAVIOR_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+
+    <table name="vendor_dubors_recommendation" resource="default" engine="innodb" comment="DUBORS Recommendations">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" comment="Customer ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" comment="Product ID"/>
+        <column xsi:type="varchar" name="recommendation_type" nullable="false" length="64" default="hybrid" comment="Recommendation Type"/>
+        <column xsi:type="varchar" name="coupon_code" nullable="true" length="255" comment="Coupon Code"/>
+        <column xsi:type="decimal" name="discount_percent" scale="2" precision="5" nullable="true" comment="Discount Percentage"/>
+        <column xsi:type="decimal" name="confidence_score" scale="2" precision="5" nullable="true" comment="Confidence Score"/>
+        <column xsi:type="decimal" name="score" scale="4" precision="12" nullable="true" comment="Final Score"/>
+        <column xsi:type="int" name="position" unsigned="true" nullable="true" comment="Display Position"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50" default="pending" comment="Status"/>
+        <column xsi:type="text" name="reason" nullable="true" comment="AI Recommendation Reason"/>
+        <column xsi:type="text" name="rejection_feedback" nullable="true" comment="Admin Rejection Feedback"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <column xsi:type="timestamp" name="expires_at" nullable="true" comment="Expires At"/>
+        <column xsi:type="timestamp" name="approved_at" nullable="true" comment="Approved At"/>
+        <column xsi:type="timestamp" name="redeemed_at" nullable="true" comment="Redeemed At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="VENDOR_DUBORS_RECOMMENDATION_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_RECOMMENDATION_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_RECOMMENDATION_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="VENDOR_DUBORS_RECOMMENDATION_EXPIRES_AT" indexType="btree">
+            <column name="expires_at"/>
+        </index>
+    </table>
+
+    <table name="vendor_dubors_model_training" resource="default" engine="innodb" comment="DUBORS ML Model Training">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="model_id" nullable="true" length="128"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50" default="pending"/>
+        <column xsi:type="decimal" name="accuracy" scale="4" precision="8" nullable="true"/>
+        <column xsi:type="text" name="error_message" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY"><column name="entity_id"/></constraint>
+    </table>
+
+    <table name="vendor_dubors_ml_service_monitor" resource="default" engine="innodb" comment="DUBORS ML Service Monitor">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50"/>
+        <column xsi:type="decimal" name="response_time" scale="4" precision="12" nullable="true"/>
+        <column xsi:type="text" name="error_message" nullable="true"/>
+        <column xsi:type="int" name="consecutive_failures" unsigned="true" nullable="false" default="0"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY"><column name="entity_id"/></constraint>
+    </table>
+
+    <table name="vendor_dubors_system_config" resource="default" engine="innodb" comment="DUBORS Runtime State">
+        <column xsi:type="varchar" name="config_key" nullable="false" length="128"/>
+        <column xsi:type="text" name="config_value" nullable="true"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY"><column name="config_key"/></constraint>
+    </table>
+
+    <table name="vendor_dubors_recommendation_event" resource="default" engine="innodb" comment="DUBORS Recommendation Events">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="recommendation_id" unsigned="true" nullable="true"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true"/>
+        <column xsi:type="varchar" name="event_type" nullable="false" length="50"/>
+        <column xsi:type="decimal" name="revenue" scale="4" precision="12" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY"><column name="entity_id"/></constraint>
+    </table>
+
+    <table name="vendor_dubors_customer_segment" resource="default" engine="innodb" comment="DUBORS Customer Segments">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="segment" nullable="false" length="64"/>
+        <column xsi:type="decimal" name="rfm_score" scale="4" precision="12" nullable="true"/>
+        <column xsi:type="decimal" name="engagement_score" scale="4" precision="12" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY"><column name="entity_id"/></constraint>
+        <constraint xsi:type="unique" referenceId="VENDOR_DUBORS_CUSTOMER_SEGMENT_CUSTOMER_ID"><column name="customer_id"/></constraint>
+    </table>
+</schema>

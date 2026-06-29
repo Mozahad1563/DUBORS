@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="BrainStation23_Dubors::menu" title="DUBORS" module="BrainStation23_Dubors" sortOrder="100" resource="BrainStation23_Dubors::admin"/>
+        <add id="BrainStation23_Dubors::recommendations" title="Recommendations" module="BrainStation23_Dubors" action="dubors/recommendation/index" resource="BrainStation23_Dubors::recommendations" sortOrder="10" parent="BrainStation23_Dubors::menu"/>
+        <add id="BrainStation23_Dubors::user_behavior" title="User Behavior" module="BrainStation23_Dubors" action="dubors/behavior/index" resource="BrainStation23_Dubors::user_behavior" sortOrder="20" parent="BrainStation23_Dubors::menu"/>
+        <add id="BrainStation23_Dubors::ml_dashboard" title="ML Dashboard" module="BrainStation23_Dubors" action="dubors/system/dashboard" resource="BrainStation23_Dubors::config" sortOrder="25" parent="BrainStation23_Dubors::menu"/>
+        <add id="BrainStation23_Dubors::system_config" title="Configuration" module="BrainStation23_Dubors" action="adminhtml/system_config/edit/section/dubors" resource="BrainStation23_Dubors::config" sortOrder="30" parent="BrainStation23_Dubors::menu"/>
+    </menu>
+</config>

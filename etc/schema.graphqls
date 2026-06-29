@@ -1,0 +1,86 @@
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+
+type Query {
+    duborsRecommendations(
+        customerId: Int
+        limit: Int = 10
+        offset: Int = 0
+        status: String
+    ): DuborsRecommendationList! @resolver(class: "BrainStation23\\Dubors\\Model\\Resolver\\RecommendationsQuery")
+
+    duborsUserBehaviors(
+        customerId: Int!
+        limit: Int = 10
+        offset: Int = 0
+        behaviorType: String
+    ): DuborsUserBehaviorList! @resolver(class: "BrainStation23\\Dubors\\Model\\Resolver\\UserBehaviorsQuery")
+}
+
+type Mutation {
+    duborsApproveRecommendation(id: Int!): DuborsApproveRecommendationResult! @resolver(class: "BrainStation23\\Dubors\\Model\\Resolver\\ApproveRecommendationMutation")
+}
+
+type Customer {
+    dubors_personalized_offer: DuborsRecommendation @resolver(class: "BrainStation23\\Dubors\\Model\\Resolver\\PersonalizedOffer")
+}
+
+type DuborsRecommendation {
+    id: Int!
+    customer_id: Int!
+    product_id: Int!
+    recommendation_type: String!
+    coupon_code: String
+    discount_percent: Float
+    confidence_score: Float!
+    status: String!
+    expires_at: String
+    created_at: String!
+    updated_at: String!
+    product: Product
+    customer: Customer
+}
+
+type DuborsRecommendationList {
+    items: [DuborsRecommendation!]!
+    total_count: Int!
+    page_info: PageInfo!
+}
+
+type DuborsUserBehavior {
+    id: Int!
+    customer_id: Int!
+    behavior_type: String!
+    product_id: Int
+    metadata: String
+    ip_address: String
+    user_agent: String
+    created_at: String!
+    product: Product
+    customer: Customer
+}
+
+type DuborsUserBehaviorList {
+    items: [DuborsUserBehavior!]!
+    total_count: Int!
+    page_info: PageInfo!
+}
+
+type DuborsApproveRecommendationResult {
+    success: Boolean!
+    message: String!
+    recommendation: DuborsRecommendation
+}
+
+type PageInfo {
+    page_size: Int!
+    current_page: Int!
+    total_pages: Int!
+    has_previous_page: Boolean!
+    has_next_page: Boolean!
+}

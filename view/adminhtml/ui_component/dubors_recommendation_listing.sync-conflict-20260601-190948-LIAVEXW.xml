@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing_data_source</item>
+            <item name="deps" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">dubors_recommendation_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="targetName" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing.dubors_recommendation_columns_editor</item>
+                <item name="eventData" xsi:type="array">
+                    <item name="action" xsi:type="string">insertRecord</item>
+                </item>
+                <item name="className" xsi:type="string">Magento\Ui\Component\Container</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="dubors_recommendation_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">BrainStation23\Dubors\Model\Ui\DataProvider\RecommendationDataProvider</argument>
+            <argument name="name" xsi:type="string">dubors_recommendation_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <columns name="dubors_recommendation_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefault" xsi:type="string">50</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="product_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Product ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="recommendation_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                    <item name="options" xsi:type="array">
+                        <item name="1" xsi:type="array">
+                            <item name="value" xsi:type="string">1</item>
+                            <item name="label" xsi:type="string" translate="true">Collaborative Filtering</item>
+                        </item>
+                        <item name="2" xsi:type="array">
+                            <item name="value" xsi:type="string">2</item>
+                            <item name="label" xsi:type="string" translate="true">Content-Based</item>
+                        </item>
+                        <item name="3" xsi:type="array">
+                            <item name="value" xsi:type="string">3</item>
+                            <item name="label" xsi:type="string" translate="true">Hybrid</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </column>
+        <column name="confidence_score">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Confidence Score</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="options" xsi:type="array">
+                        <item name="pending" xsi:type="array">
+                            <item name="value" xsi:type="string">pending</item>
+                            <item name="label" xsi:type="string" translate="true">Pending</item>
+                        </item>
+                        <item name="approved" xsi:type="array">
+                            <item name="value" xsi:type="string">approved</item>
+                            <item name="label" xsi:type="string" translate="true">Approved</item>
+                        </item>
+                        <item name="rejected" xsi:type="array">
+                            <item name="value" xsi:type="string">rejected</item>
+                            <item name="label" xsi:type="string" translate="true">Rejected</item>
+                        </item>
+                        <item name="expired" xsi:type="array">
+                            <item name="value" xsi:type="string">expired</item>
+                            <item name="label" xsi:type="string" translate="true">Expired</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_at">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="label" xsi:type="string" translate="true">Created At</item>
+                    <item name="dateFormat" xsi:type="string">yyyy-MM-dd HH:mm:ss</item>
+                </item>
+            </argument>
+        </column>
+        <column name="updated_at">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="label" xsi:type="string" translate="true">Updated At</item>
+                    <item name="dateFormat" xsi:type="string">yyyy-MM-dd HH:mm:ss</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="BrainStation23\Dubors\Ui\Component\Listing\Column\RecommendationActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefault" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

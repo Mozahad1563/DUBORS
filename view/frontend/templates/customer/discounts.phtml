@@ -1,0 +1,100 @@
+<?php
+/** @var \BrainStation23\Dubors\Block\Customer\Discounts $block */
+$discounts = $block->getApprovedDiscounts();
+?>
+<div class="block block-dubors-discounts">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('My Personalized Discounts')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if (empty($discounts)): ?>
+            <div class="message info empty">
+                <span><?= $block->escapeHtml(__('You have no personalized discount offers at this time.')) ?></span>
+            </div>
+        <?php else: ?>
+            <table class="data table table-order-items" id="dubors-discounts-table">
+                <thead>
+                    <tr>
+                        <th class="col product"><?= $block->escapeHtml(__('Product')) ?></th>
+                        <th class="col discount"><?= $block->escapeHtml(__('Discount')) ?></th>
+                        <th class="col coupon"><?= $block->escapeHtml(__('Coupon Code')) ?></th>
+                        <th class="col expires"><?= $block->escapeHtml(__('Expires')) ?></th>
+                        <th class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($discounts as $discount): ?>
+                        <?php
+                        $productId = (int)$discount->getProductId();
+                        $productName = $block->getProductName($productId);
+                        $productUrl = $block->getProductUrl($productId);
+                        $expired = $block->isExpired($discount->getExpiresAt());
+                        $redeemed = $discount->getRedeemedAt() !== null;
+                        ?>
+                        <tr>
+                            <td class="col product" data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>">
+                                <?php if ($productUrl): ?>
+                                    <a href="<?= $block->escapeUrl($productUrl) ?>"><?= $block->escapeHtml($productName) ?></a>
+                                <?php else: ?>
+                                    <?= $block->escapeHtml($productName) ?>
+                                <?php endif; ?>
+                            </td>
+                            <td class="col discount" data-th="<?= $block->escapeHtmlAttr(__('Discount')) ?>">
+                                <span class="dubors-discount-badge">
+                                    <?= $block->escapeHtml((string)$discount->getDiscountPercent()) ?>% <?= $block->escapeHtml(__('OFF')) ?>
+                                </span>
+                            </td>
+                            <td class="col coupon" data-th="<?= $block->escapeHtmlAttr(__('Coupon Code')) ?>">
+                                <?php if (!$expired && !$redeemed): ?>
+                                    <strong class="dubors-coupon-code"><?= $block->escapeHtml($discount->getCouponCode()) ?></strong>
+                                <?php else: ?>
+                                    <span class="dubors-coupon-expired"><?= $block->escapeHtml($discount->getCouponCode()) ?></span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="col expires" data-th="<?= $block->escapeHtmlAttr(__('Expires')) ?>">
+                                <?= $block->escapeHtml($discount->getExpiresAt() ? date('M j, Y', strtotime($discount->getExpiresAt())) : '-') ?>
+                            </td>
+                            <td class="col status" data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>">
+                                <?php if ($redeemed): ?>
+                                    <span class="dubors-status redeemed"><?= $block->escapeHtml(__('Redeemed')) ?></span>
+                                <?php elseif ($expired): ?>
+                                    <span class="dubors-status expired"><?= $block->escapeHtml(__('Expired')) ?></span>
+                                <?php else: ?>
+                                    <span class="dubors-status active"><?= $block->escapeHtml(__('Active')) ?></span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>
+
+<style>
+.block-dubors-discounts .dubors-discount-badge {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 14px;
+}
+.block-dubors-discounts .dubors-coupon-code {
+    font-family: monospace;
+    font-size: 15px;
+    color: #1565c0;
+    background: #e3f2fd;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+.block-dubors-discounts .dubors-coupon-expired {
+    text-decoration: line-through;
+    color: #999;
+}
+.block-dubors-discounts .dubors-status.active { color: #2e7d32; font-weight: 600; }
+.block-dubors-discounts .dubors-status.expired { color: #999; }
+.block-dubors-discounts .dubors-status.redeemed { color: #1565c0; }
+</style>

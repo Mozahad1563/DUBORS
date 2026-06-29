@@ -1,0 +1,68 @@
+<?php
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div id="dubors-personalized-offer-banner" class="dubors-banner" data-bind="scope: 'duborsPersonalizedOffer'" style="display: none;" data-bind="visible: hasOffer()">
+    <!-- ko if: hasOffer() -->
+    <div class="dubors-banner-content">
+        <span class="dubors-icon">🎉</span>
+        <span class="dubors-message">
+            <?= $block->escapeHtml(__('Special Offer Just for You! Use code')) ?>
+            <strong data-bind="text: getCouponCode()"></strong>
+            <?= $block->escapeHtml(__('for')) ?>
+            <span data-bind="text: getDiscountPercent()"></span>% 
+            <?= $block->escapeHtml(__('OFF your next purchase.')) ?>
+        </span>
+        <span class="dubors-expiry" data-bind="text: getExpiryMessage()"></span>
+    </div>
+    <!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+{
+    "#dubors-personalized-offer-banner": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "duborsPersonalizedOffer": {
+                    "component": "BrainStation23_Dubors/js/view/personalized-offer"
+                }
+            }
+        }
+    }
+}
+</script>
+
+<style>
+.dubors-banner {
+    background: #f0f7ff;
+    border: 1px solid #cce4ff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    color: #004085;
+}
+.dubors-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+}
+.dubors-icon {
+    font-size: 24px;
+}
+.dubors-expiry {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+</style>

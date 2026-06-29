@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <publisher topic="dubors.user.behavior.event">
+        <connection name="db" exchange="dubors" disabled="false"/>
+        <connection name="amqp" disabled="true"/>
+    </publisher>
+
+    <publisher topic="dubors.recommendation.generate">
+        <connection name="db" exchange="dubors" disabled="false"/>
+        <connection name="amqp" disabled="true"/>
+    </publisher>
+
+    <publisher topic="dubors.notification.send">
+        <connection name="db" exchange="dubors" disabled="false"/>
+        <connection name="amqp" disabled="true"/>
+    </publisher>
+
+    <!-- db connection with dedicated exchange — avoids merge conflict with the amqp "magento" exchange -->
+    <publisher topic="dubors.model.train">
+        <connection name="db" exchange="dubors" disabled="false"/>
+        <connection name="amqp" disabled="true"/>
+    </publisher>
+</config>

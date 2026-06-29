@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="dubors.user.behavior.event.consumer" queue="dubors_user_behavior_queue" handler="BrainStation23\Dubors\Model\MessageQueue\UserBehaviorConsumer::process" maxMessages="1000" connection="db"/>
+
+    <consumer name="dubors.recommendation.generate.consumer" queue="dubors_recommendation_queue" handler="BrainStation23\Dubors\Model\MessageQueue\RecommendationConsumer::process" maxMessages="500" connection="db"/>
+
+    <consumer name="dubors.notification.send.consumer" queue="dubors_notification_queue" handler="BrainStation23\Dubors\Model\MessageQueue\NotificationConsumer::process" maxMessages="2000" connection="db"/>
+
+    <consumer name="dubors.model.train.consumer" queue="dubors_model_train_queue" handler="BrainStation23\Dubors\Model\MessageQueue\ModelTrainConsumer::process" maxMessages="1" connection="db"/>
+</config>

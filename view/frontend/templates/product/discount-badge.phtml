@@ -1,0 +1,63 @@
+<?php
+/** @var \BrainStation23\Dubors\Block\Product\DiscountBadge $block */
+$offer = $block->getActiveOffer();
+if (!$offer) {
+    return;
+}
+$discount = (float)$offer->getDiscountPercent();
+$coupon = $offer->getCouponCode();
+?>
+<div class="dubors-personalized-discount-badge">
+    <div class="dubors-badge-inner">
+        <span class="dubors-badge-icon">&#127881;</span>
+        <div class="dubors-badge-text">
+            <strong><?= $block->escapeHtml(sprintf('%.0f%% OFF', $discount)) ?></strong>
+            <span><?= $block->escapeHtml(__('Exclusive discount just for you!')) ?></span>
+        </div>
+        <div class="dubors-badge-coupon">
+            <?= $block->escapeHtml(__('Code:')) ?>
+            <strong><?= $block->escapeHtml($coupon) ?></strong>
+        </div>
+    </div>
+</div>
+
+<style>
+.dubors-personalized-discount-badge {
+    margin: 10px 0 15px;
+}
+.dubors-badge-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+    padding: 12px 18px;
+}
+.dubors-badge-icon {
+    font-size: 28px;
+}
+.dubors-badge-text strong {
+    display: block;
+    font-size: 18px;
+    color: #2e7d32;
+}
+.dubors-badge-text span {
+    font-size: 13px;
+    color: #555;
+}
+.dubors-badge-coupon {
+    margin-left: auto;
+    background: #fff;
+    border: 1px dashed #4caf50;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.dubors-badge-coupon strong {
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: #1565c0;
+}
+</style>

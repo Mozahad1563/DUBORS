@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <dubors>
+            <general>
+                <enabled>1</enabled>
+                <tracking_enabled>1</tracking_enabled>
+                <debug_mode>0</debug_mode>
+            </general>
+            <ml_service>
+                <service_enabled>1</service_enabled>
+                <service_url>http://localhost:8000</service_url>
+                <service_timeout>30</service_timeout>
+            </ml_service>
+            <recommendations>
+                <min_confidence>40</min_confidence>
+                <max_recommendations>5</max_recommendations>
+                <validity_days>30</validity_days>
+                <auto_approve>0</auto_approve>
+            </recommendations>
+            <advanced>
+                <data_retention_days>365</data_retention_days>
+                <batch_size>500</batch_size>
+                <enable_export>0</enable_export>
+            </advanced>
+        </dubors>
+    </default>
+</config>

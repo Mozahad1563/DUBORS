@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- ML Service Client -->
+    <type name="BrainStation23\Dubors\Service\MlServiceClient">
+        <arguments>
+            <argument name="config" xsi:type="object">BrainStation23\Dubors\Helper\Config</argument>
+            <argument name="curl" xsi:type="object">Magento\Framework\HTTP\Client\Curl</argument>
+            <argument name="json" xsi:type="object">Magento\Framework\Serialize\Serializer\Json</argument>
+            <argument name="logger" xsi:type="object">Magento\Framework\Logger\Monolog</argument>
+        </arguments>
+    </type>
+
+    <!-- Feature Extractor -->
+    <type name="BrainStation23\Dubors\Service\FeatureExtractor">
+        <arguments>
+            <argument name="behaviorCollectionFactory" xsi:type="object">BrainStation23\Dubors\Model\ResourceModel\UserBehavior\CollectionFactory</argument>
+            <argument name="recommendationCollectionFactory" xsi:type="object">BrainStation23\Dubors\Model\ResourceModel\Recommendation\CollectionFactory</argument>
+            <argument name="productRepository" xsi:type="object">Magento\Catalog\Model\Product\Repository</argument>
+            <argument name="logger" xsi:type="object">Magento\Framework\Logger\Monolog</argument>
+        </arguments>
+    </type>
+
+    <!-- Recommendation Engine -->
+    <type name="BrainStation23\Dubors\Service\RecommendationEngine">
+        <arguments>
+            <argument name="config" xsi:type="object">BrainStation23\Dubors\Helper\Config</argument>
+            <argument name="mlClient" xsi:type="object">BrainStation23\Dubors\Service\MlServiceClient</argument>
+            <argument name="featureExtractor" xsi:type="object">BrainStation23\Dubors\Service\FeatureExtractor</argument>
+            <argument name="recommendationFactory" xsi:type="object">BrainStation23\Dubors\Model\RecommendationFactory</argument>
+            <argument name="recommendationRepository" xsi:type="object">BrainStation23\Dubors\Model\RecommendationRepository</argument>
+            <argument name="behaviorCollectionFactory" xsi:type="object">BrainStation23\Dubors\Model\ResourceModel\UserBehavior\CollectionFactory</argument>
+            <argument name="publisher" xsi:type="object">Magento\Framework\MessageQueue\PublisherInterface</argument>
+            <argument name="logger" xsi:type="object">Magento\Framework\Logger\Monolog</argument>
+        </arguments>
+    </type>
+
+    <!-- Preferences for type hinting -->
+    <preference for="BrainStation23\Dubors\Service\MlServiceClient" type="BrainStation23\Dubors\Service\MlServiceClient"/>
+    <preference for="BrainStation23\Dubors\Service\FeatureExtractor" type="BrainStation23\Dubors\Service\FeatureExtractor"/>
+    <preference for="BrainStation23\Dubors\Service\RecommendationEngine" type="BrainStation23\Dubors\Service\RecommendationEngine"/>
+</config>

@@ -1,0 +1,73 @@
+<?php
+/** @var \BrainStation23\Dubors\Block\Adminhtml\Recommendation\RejectForm $block */
+$recommendation = $block->getRecommendation();
+if (!$recommendation) {
+    return;
+}
+$id = $recommendation->getEntityId();
+?>
+<div class="page-main-actions">
+    <div class="page-actions">
+        <a class="action-default" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+            <?= $block->escapeHtml(__('Back')) ?>
+        </a>
+    </div>
+</div>
+
+<div class="fieldset-wrapper" style="max-width:700px;">
+    <div class="fieldset-wrapper-title"><strong><?= $block->escapeHtml(__('Recommendation Details')) ?></strong></div>
+    <table class="data-table admin__table-secondary" style="margin-bottom:20px;">
+        <tr>
+            <th style="width:180px;"><?= $block->escapeHtml(__('ID')) ?></th>
+            <td><?= (int)$id ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Customer ID')) ?></th>
+            <td><?= (int)$recommendation->getCustomerId() ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Product ID')) ?></th>
+            <td><?= (int)$recommendation->getProductId() ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Discount %')) ?></th>
+            <td><?= $block->escapeHtml((string)$recommendation->getDiscountPercent()) ?>%</td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Confidence')) ?></th>
+            <td><?= $block->escapeHtml((string)$recommendation->getConfidenceScore()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('AI Reason')) ?></th>
+            <td><?= $block->escapeHtml((string)$recommendation->getReason()) ?></td>
+        </tr>
+    </table>
+
+    <form method="post" action="<?= $block->escapeUrl($block->getSubmitUrl()) ?>" id="dubors-reject-form">
+        <?= $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="id" value="<?= (int)$id ?>"/>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="rejection_feedback">
+                <span><?= $block->escapeHtml(__('Rejection Reason')) ?></span>
+            </label>
+            <div class="admin__field-control">
+                <textarea id="rejection_feedback"
+                          name="rejection_feedback"
+                          class="admin__control-textarea"
+                          rows="5"
+                          placeholder="<?= $block->escapeHtmlAttr(__('Why are you rejecting this recommendation? This feedback will be sent to the AI for learning.')) ?>"
+                          required></textarea>
+            </div>
+        </div>
+
+        <div class="admin__field" style="margin-top:20px;">
+            <button type="submit" class="action-primary">
+                <span><?= $block->escapeHtml(__('Reject & Send Feedback to AI')) ?></span>
+            </button>
+            <a class="action-default" href="<?= $block->escapeUrl($block->getBackUrl()) ?>" style="margin-left:10px;">
+                <?= $block->escapeHtml(__('Cancel')) ?>
+            </a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="brainstation23" translate="label" sortOrder="100">
+            <label>BrainStation23</label>
+        </tab>
+
+        <section id="dubors" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>DUBORS - Dynamic User Based Offer Recommendation System</label>
+            <tab>brainstation23</tab>
+            <resource>BrainStation23_Dubors::config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable DUBORS Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the DUBORS recommendation system</comment>
+                </field>
+
+                <field id="tracking_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Event Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable automatic event tracking for customer behavior</comment>
+                </field>
+
+                <field id="debug_mode" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable debug logging for tracking events</comment>
+                </field>
+            </group>
+
+            <group id="ml_service" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>ML Service Configuration</label>
+
+                <field id="service_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable ML Service</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable integration with ML microservice</comment>
+                </field>
+
+                <field id="service_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Service URL</label>
+                    <comment>Base URL of the ML service microservice</comment>
+                    <validate>required_entry</validate>
+                </field>
+
+                <field id="service_timeout" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Service Timeout (seconds)</label>
+                    <validate>validate-number</validate>
+                    <comment>Timeout for ML service requests</comment>
+                </field>
+
+                <field id="api_key" translate="label" type="password" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Key</label>
+                    <comment>Authentication key for ML service</comment>
+                </field>
+            </group>
+
+            <group id="recommendations" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Recommendation Settings</label>
+
+                <field id="min_confidence" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Confidence Score</label>
+                    <validate>validate-number validate-digits</validate>
+                    <comment>Minimum confidence score (0-100) for recommendations to be displayed</comment>
+                </field>
+
+                <field id="max_recommendations" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Recommendations Per Customer</label>
+                    <validate>validate-number validate-digits</validate>
+                    <comment>Maximum number of recommendations per customer</comment>
+                </field>
+
+                <field id="validity_days" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Recommendation Validity (Days)</label>
+                    <validate>validate-number validate-digits</validate>
+                    <comment>Number of days a recommendation remains valid</comment>
+                </field>
+
+                <field id="auto_approve" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto-Approve Recommendations</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Automatically approve generated recommendations</comment>
+                </field>
+            </group>
+
+            <group id="advanced" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Advanced Settings</label>
+
+                <field id="data_retention_days" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Data Retention (Days)</label>
+                    <validate>validate-number validate-digits</validate>
+                    <comment>Number of days to retain user behavior data</comment>
+                </field>
+
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Batch Processing Size</label>
+                    <validate>validate-number validate-digits</validate>
+                    <comment>Number of records to process in each batch</comment>
+                </field>
+
+                <field id="enable_export" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Data Export</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow export of recommendation data</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

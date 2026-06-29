@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <!-- Generate recommendations for all customers at 2 AM daily -->
+    <group id="dubors_recommendations">
+        <job name="dubors_generate_recommendations" instance="BrainStation23\Dubors\Cron\GenerateRecommendations" method="execute">
+            <schedule>0 2 * * *</schedule>
+            <config_path>dubors/cron/generate_recommendations_enabled</config_path>
+        </job>
+        <!-- Purge old behavior records older than configured retention period at 3 AM daily -->
+        <job name="dubors_purge_old_behavior" instance="BrainStation23\Dubors\Cron\PurgeOldBehavior" method="execute">
+            <schedule>0 3 * * *</schedule>
+            <config_path>dubors/cron/purge_old_behavior_enabled</config_path>
+        </job>
+        <!-- Update model training status and check for stale models every 30 minutes -->
+        <job name="dubors_update_model_status" instance="BrainStation23\Dubors\Cron\UpdateModelStatus" method="execute">
+            <schedule>*/30 * * * *</schedule>
+            <config_path>dubors/cron/update_model_status_enabled</config_path>
+        </job>
+        <!-- Monitor ML service health every 5 minutes -->
+        <job name="dubors_monitor_ml_service" instance="BrainStation23\Dubors\Cron\MonitorMlService" method="execute">
+            <schedule>*/5 * * * *</schedule>
+            <config_path>dubors/cron/monitor_ml_service_enabled</config_path>
+        </job>
+        <!-- Clean up old logs every week at 4 AM Sunday -->
+        <job name="dubors_cleanup_logs" instance="BrainStation23\Dubors\Cron\CleanupLogs" method="execute">
+            <schedule>0 4 * * 0</schedule>
+            <config_path>dubors/cron/cleanup_logs_enabled</config_path>
+        </job>
+        <!-- Send negative feedback for expired unredeemed coupons daily at 1 AM -->
+        <job name="dubors_expired_coupon_feedback" instance="BrainStation23\Dubors\Cron\ExpiredCouponFeedback" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+        <!-- Automated weekly model retrain — Sundays at 5 AM -->
+        <job name="dubors_weekly_model_retrain" instance="BrainStation23\Dubors\Cron\WeeklyModelRetrain" method="execute">
+            <schedule>0 5 * * 0</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/communication.xsd">
+    <topic name="dubors.user.behavior.event" request="string"/>
+    <topic name="dubors.recommendation.generate" request="string"/>
+    <topic name="dubors.notification.send" request="string"/>
+    <topic name="dubors.model.train" request="string"/>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="BrainStation23\Dubors\Block\Product\DiscountBadge"
+                   name="dubors.product.discount.badge"
+                   template="BrainStation23_Dubors::product/discount-badge.phtml"
+                   before="product.info.price"
+                   cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

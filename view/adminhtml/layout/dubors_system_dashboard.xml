@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" src_type="url"/>
+        <link src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" src_type="url" rel="stylesheet"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="BrainStation23\Dubors\Block\Adminhtml\System\Dashboard"
+                   name="dubors.ml.dashboard"
+                   template="BrainStation23_Dubors::system/dashboard.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

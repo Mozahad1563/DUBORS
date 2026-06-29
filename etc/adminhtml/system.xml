@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="brainstation23" translate="label" sortOrder="200">
+            <label>BrainStation23</label>
+        </tab>
+        <section id="dubors" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>DUBORS — Personalised Discounts</label>
+            <tab>brainstation23</tab>
+            <resource>BrainStation23_Dubors::config</resource>
+
+            <!-- General -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable DUBORS</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Master switch for the entire module.</comment>
+                </field>
+                <field id="tracking_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable User Behaviour Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="debug_mode" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ML Service -->
+            <group id="ml_service" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>ML Service Connection</label>
+                <field id="service_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable ML Service</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When disabled the rule-based fallback engine is used.</comment>
+                </field>
+                <field id="service_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ML Service URL (Server)</label>
+                    <comment>Internal URL used by PHP to call the ML service. When running in Docker use the service name: http://ml:8000</comment>
+                    <validate>required-entry validate-url</validate>
+                </field>
+                <field id="browser_url" translate="label comment" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ML Service URL (Browser)</label>
+                    <comment>Browser-accessible URL for the admin dashboard WebSocket and live metrics. Use http://localhost:8000 when running Docker locally. Leave empty to reuse the Server URL.</comment>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="service_timeout" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request Timeout (seconds)</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="api_key" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <comment>Leave blank if the service has no authentication configured.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="test_connection" translate="label" type="button" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Connection Test</label>
+                    <frontend_model>BrainStation23\Dubors\Block\Adminhtml\System\Config\TestConnection</frontend_model>
+                </field>
+            </group>
+
+            <!-- Recommendations -->
+            <group id="recommendations" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Recommendation Settings</label>
+                <field id="min_confidence" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Confidence Score (%)</label>
+                    <comment>Recommendations below this threshold are suppressed. Range: 0–100.</comment>
+                    <validate>required-entry validate-number validate-number-range number-range-0-100</validate>
+                </field>
+                <field id="max_recommendations" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Recommendations per Customer</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="validity_days" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Recommendation Validity (days)</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="auto_approve" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto-Approve Recommendations</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When enabled, recommendations are approved automatically without business head review. Disables RL feedback loop.</comment>
+                </field>
+            </group>
+
+            <!-- Advanced -->
+            <group id="advanced" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Advanced</label>
+                <field id="data_retention_days" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Data Retention (days)</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Batch Processing Size</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="enable_export" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Data Export</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

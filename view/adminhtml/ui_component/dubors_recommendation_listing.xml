@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <!-- Data source -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="train_model">
+                <url path="dubors/recommendation/trainModel"/>
+                <class>primary</class>
+                <label translate="true">Train ML Model</label>
+            </button>
+        </buttons>
+        <spinner>dubors_recommendation_columns</spinner>
+        <deps>
+            <dep>dubors_recommendation_listing.dubors_recommendation_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <!-- Data provider -->
+    <dataSource name="dubors_recommendation_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>BrainStation23_Dubors::recommendations</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="dubors_recommendation_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- Toolbar -->
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <paging name="listing_paging"/>
+        <exportButton name="export_button"/>
+    </listingToolbar>
+
+    <!-- Columns -->
+    <columns name="dubors_recommendation_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing.dubors_recommendation_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">dubors_recommendation_listing.dubors_recommendation_listing.dubors_recommendation_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="entity_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="customer_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer ID</label>
+            </settings>
+        </column>
+
+        <column name="product_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product ID</label>
+            </settings>
+        </column>
+
+        <column name="recommendation_type">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+
+        <column name="discount_percent">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Discount %</label>
+            </settings>
+        </column>
+
+        <column name="confidence_score">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Confidence</label>
+            </settings>
+        </column>
+
+        <column name="coupon_code">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Coupon Code</label>
+            </settings>
+        </column>
+
+        <column name="status">
+            <settings>
+                <filter>select</filter>
+                <options class="BrainStation23\Dubors\Ui\Component\Listing\Column\StatusOptions"/>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+
+        <column name="reason">
+            <settings>
+                <label translate="true">AI Reason</label>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="rejection_feedback">
+            <settings>
+                <label translate="true">Rejection Feedback</label>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+                <visible>false</visible>
+            </settings>
+        </column>
+
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="expires_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Expires</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions"
+                       class="BrainStation23\Dubors\Ui\Component\Listing\Column\RecommendationActions">
+            <settings>
+                <indexField>entity_id</indexField>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+
+    </columns>
+</listing>

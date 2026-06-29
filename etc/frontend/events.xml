@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="catalog_controller_product_view">
+        <observer name="dubors_track_product_view"
+                  instance="BrainStation23\Dubors\Observer\TrackProductView"/>
+    </event>
+
+    <event name="checkout_cart_product_add_after">
+        <observer name="dubors_track_add_to_cart"
+                  instance="BrainStation23\Dubors\Observer\TrackAddToCart"/>
+        <observer name="dubors_auto_apply_coupon"
+                  instance="BrainStation23\Dubors\Observer\AutoApplyCoupon"/>
+    </event>
+
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="dubors_track_order_success"
+                  instance="BrainStation23\Dubors\Observer\TrackOrderSuccess"/>
+    </event>
+
+    <event name="catalogsearch_query_save_after">
+        <observer name="dubors_track_search"
+                  instance="BrainStation23\Dubors\Observer\TrackSearch"/>
+    </event>
+
+    <event name="wishlist_add_product">
+        <observer name="dubors_track_wishlist_add"
+                  instance="BrainStation23\Dubors\Observer\TrackWishlistAdd"/>
+    </event>
+
+</config>

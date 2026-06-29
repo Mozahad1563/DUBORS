@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Bind Repository Interfaces to Implementations -->
+    <preference for="BrainStation23\Dubors\Api\RecommendationRepositoryInterface" type="BrainStation23\Dubors\Model\RecommendationRepository"/>
+    <preference for="BrainStation23\Dubors\Api\UserBehaviorRepositoryInterface" type="BrainStation23\Dubors\Model\UserBehaviorRepository"/>
+
+    <!-- Bind Data Interfaces to Model Implementations -->
+    <preference for="BrainStation23\Dubors\Api\Data\RecommendationInterface" type="BrainStation23\Dubors\Model\Recommendation"/>
+    <preference for="BrainStation23\Dubors\Api\Data\UserBehaviorInterface" type="BrainStation23\Dubors\Model\UserBehavior"/>
+
+    <!-- Factory Declarations -->
+    <virtualType name="BrainStation23\Dubors\Model\RecommendationFactory" type="Magento\Framework\ObjectManager\Factory\Dynamic\Simple">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">BrainStation23\Dubors\Model\Recommendation</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="BrainStation23\Dubors\Model\UserBehaviorFactory" type="Magento\Framework\ObjectManager\Factory\Dynamic\Simple">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">BrainStation23\Dubors\Model\UserBehavior</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Collection Factories -->
+    <virtualType name="BrainStation23\Dubors\Model\ResourceModel\Recommendation\CollectionFactory" type="Magento\Framework\ObjectManager\Factory\Dynamic\Simple">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="BrainStation23\Dubors\Model\ResourceModel\UserBehavior\CollectionFactory" type="Magento\Framework\ObjectManager\Factory\Dynamic\Simple">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\UserBehavior\Collection</argument>
+        </arguments>
+    </virtualType>
+</config>

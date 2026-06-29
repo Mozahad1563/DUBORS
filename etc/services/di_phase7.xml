@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Customer Segmentation Service -->
+    <type name="BrainStation23\Dubors\Service\Segmentation\CustomerSegmentation">
+        <arguments>
+            <argument name="resourceConnection" xsi:type="object">Magento\Framework\App\ResourceConnection</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+        </arguments>
+    </type>
+
+    <!-- A/B Testing Engine -->
+    <type name="BrainStation23\Dubors\Service\Testing\AbTestingEngine">
+        <arguments>
+            <argument name="resourceConnection" xsi:type="object">Magento\Framework\App\ResourceConnection</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+        </arguments>
+    </type>
+
+    <!-- Rule-Based Filter -->
+    <type name="BrainStation23\Dubors\Service\Filtering\RuleBasedFilter">
+        <arguments>
+            <argument name="resourceConnection" xsi:type="object">Magento\Framework\App\ResourceConnection</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+        </arguments>
+    </type>
+
+    <!-- Custom Scoring Engine -->
+    <type name="BrainStation23\Dubors\Service\Scoring\CustomScoringEngine">
+        <arguments>
+            <argument name="resourceConnection" xsi:type="object">Magento\Framework\App\ResourceConnection</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+        </arguments>
+    </type>
+
+    <!-- Update RecommendationEngine to use new services -->
+    <type name="BrainStation23\Dubors\Service\RecommendationEngine">
+        <arguments>
+            <argument name="segmentation" xsi:type="object">BrainStation23\Dubors\Service\Segmentation\CustomerSegmentation</argument>
+            <argument name="abTestingEngine" xsi:type="object">BrainStation23\Dubors\Service\Testing\AbTestingEngine</argument>
+            <argument name="ruleBasedFilter" xsi:type="object">BrainStation23\Dubors\Service\Filtering\RuleBasedFilter</argument>
+            <argument name="customScoring" xsi:type="object">BrainStation23\Dubors\Service\Scoring\CustomScoringEngine</argument>
+        </arguments>
+    </type>
+</config>

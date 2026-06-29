@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BrainStation23
+ *
+ * @category    BrainStation23
+ * @package     BrainStation23_Dubors
+ * @copyright   Copyright (c) 2026 BrainStation23
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="BrainStation23_Dubors::admin" title="DUBORS">
+                    <resource id="BrainStation23_Dubors::recommendations" title="Manage Recommendations" sortOrder="10"/>
+                    <resource id="BrainStation23_Dubors::user_behavior" title="View User Behavior" sortOrder="20"/>
+                    <resource id="BrainStation23_Dubors::config" title="DUBORS Configuration" sortOrder="30"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
