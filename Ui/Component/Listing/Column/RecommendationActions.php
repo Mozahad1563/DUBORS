@@ -46,37 +46,66 @@ class RecommendationActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as &$item) {
                 if (isset($item['entity_id'])) {
-                    $item[$this->getData('name')] = [
-                        'approve' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                'dubors/recommendation/approve',
-                                ['id' => $item['entity_id']]
-                            ),
-                            'label'   => __('Approve'),
-                            'confirm' => [
-                                'title'   => __('Approve Recommendation'),
-                                'message' => __('Are you sure you want to approve this recommendation?')
-                            ]
-                        ],
-                        'reject' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                'dubors/recommendation/rejectForm',
-                                ['id' => $item['entity_id']]
-                            ),
-                            'label'   => __('Reject'),
-                        ],
-                        'delete' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                'dubors/recommendation/delete',
-                                ['id' => $item['entity_id']]
-                            ),
-                            'label'   => __('Delete'),
-                            'confirm' => [
-                                'title'   => __('Delete Recommendation'),
-                                'message' => __('Are you sure you want to delete this recommendation?')
-                            ]
-                        ],
-                    ];
+                    $status = $item['status'] ?? 'pending';
+
+                    if ($status === 'pending') {
+                        $item[$this->getData('name')] = [
+                            'approve' => [
+                                'href' => $this->urlBuilder->getUrl(
+                                    'dubors/recommendation/approve',
+                                    ['id' => $item['entity_id']]
+                                ),
+                                'label'   => __('Approve'),
+                                'confirm' => [
+                                    'title'   => __('Approve Recommendation'),
+                                    'message' => __('Are you sure you want to approve this recommendation?')
+                                ]
+                            ],
+                            'reject' => [
+                                'href' => $this->urlBuilder->getUrl(
+                                    'dubors/recommendation/rejectForm',
+                                    ['id' => $item['entity_id']]
+                                ),
+                                'label'   => __('Reject'),
+                            ],
+                            'delete' => [
+                                'href' => $this->urlBuilder->getUrl(
+                                    'dubors/recommendation/delete',
+                                    ['id' => $item['entity_id']]
+                                ),
+                                'label'   => __('Delete'),
+                                'confirm' => [
+                                    'title'   => __('Delete Recommendation'),
+                                    'message' => __('Are you sure you want to delete this recommendation?')
+                                ]
+                            ],
+                        ];
+                    } else {
+                        $item[$this->getData('name')] = [
+                            'reject' => [
+                                'href' => $this->urlBuilder->getUrl(
+                                    'dubors/recommendation/moveToPending',
+                                    ['id' => $item['entity_id']]
+                                ),
+                                'label'   => __('Reject'),
+                                'confirm' => [
+                                    'title'   => __('Move to Pending'),
+                                    'message' => __('Are you sure you want to reject this recommendation and move it back to the pending list?')
+                                ]
+                            ],
+                            'delete' => [
+                                'href' => $this->urlBuilder->getUrl(
+                                    'dubors/recommendation/delete',
+                                    ['id' => $item['entity_id']]
+                                ),
+                                'label'   => __('Delete'),
+                                'confirm' => [
+                                    'title'   => __('Delete Recommendation'),
+                                    'message' => __('Are you sure you want to delete this recommendation?')
+                                ]
+                            ],
+                        ];
+                    }
                 }
             }
         }
