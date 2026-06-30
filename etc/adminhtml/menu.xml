@@ -12,6 +12,7 @@
     <menu>
         <add id="BrainStation23_Dubors::menu" title="DUBORS" module="BrainStation23_Dubors" sortOrder="100" resource="BrainStation23_Dubors::admin"/>
         <add id="BrainStation23_Dubors::recommendations" title="Recommendations" module="BrainStation23_Dubors" action="dubors/recommendation/index" resource="BrainStation23_Dubors::recommendations" sortOrder="10" parent="BrainStation23_Dubors::menu"/>
+        <add id="BrainStation23_Dubors::pending_recommendations" title="Pending Recommendations" module="BrainStation23_Dubors" action="dubors/recommendation/pending" resource="BrainStation23_Dubors::recommendations" sortOrder="15" parent="BrainStation23_Dubors::menu"/>
         <add id="BrainStation23_Dubors::user_behavior" title="User Behavior" module="BrainStation23_Dubors" action="dubors/behavior/index" resource="BrainStation23_Dubors::user_behavior" sortOrder="20" parent="BrainStation23_Dubors::menu"/>
         <add id="BrainStation23_Dubors::ml_dashboard" title="ML Dashboard" module="BrainStation23_Dubors" action="dubors/system/dashboard" resource="BrainStation23_Dubors::config" sortOrder="25" parent="BrainStation23_Dubors::menu"/>
         <add id="BrainStation23_Dubors::system_config" title="Configuration" module="BrainStation23_Dubors" action="adminhtml/system_config/edit/section/dubors" resource="BrainStation23_Dubors::config" sortOrder="30" parent="BrainStation23_Dubors::menu"/>

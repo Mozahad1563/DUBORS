@@ -114,7 +114,7 @@ class CouponGenerator
         $rule->setIsActive(true);
         $rule->setSimpleAction(RuleInterface::DISCOUNT_ACTION_BY_PERCENT);
         $rule->setDiscountAmount($discount);
-        $rule->setCouponType(RuleInterface::COUPON_TYPE_SPECIFIC);
+        $rule->setCouponType(RuleInterface::COUPON_TYPE_SPECIFIC_COUPON);
         $rule->setUseAutoGeneration(false); // We generate manually for more control
         $rule->setWebsiteIds([1]); // Default to first website, should be dynamic in multi-website setups
         $rule->setCustomerGroupIds([0, 1, 2, 3]); // NOT_LOGGED_IN and standard groups
