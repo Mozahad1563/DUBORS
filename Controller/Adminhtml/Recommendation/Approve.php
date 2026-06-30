@@ -80,6 +80,6 @@ class Approve extends Action
             );
         }
 
-        return $resultRedirect->setPath('*/*/');
+        return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
     }
 }

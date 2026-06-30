@@ -27,6 +27,8 @@
             <argument name="collections" xsi:type="array">
                 <item name="dubors_recommendation_listing_data_source"
                       xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\Collection</item>
+                <item name="dubors_pending_recommendation_listing_data_source"
+                      xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\PendingCollection</item>
                 <item name="dubors_behavior_listing_data_source"
                       xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\UserBehavior\Grid\Collection</item>
             </argument>
@@ -34,6 +36,13 @@
     </type>
 
     <type name="BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vendor_dubors_recommendation</argument>
+            <argument name="resourceModel" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation</argument>
+        </arguments>
+    </type>
+
+    <type name="BrainStation23\Dubors\Model\ResourceModel\Recommendation\Grid\PendingCollection">
         <arguments>
             <argument name="mainTable" xsi:type="string">vendor_dubors_recommendation</argument>
             <argument name="resourceModel" xsi:type="string">BrainStation23\Dubors\Model\ResourceModel\Recommendation</argument>
